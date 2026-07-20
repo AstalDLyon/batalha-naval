@@ -3,26 +3,34 @@ package controller;
 import java.util.ArrayList;
 
 public class Startup {
-    ArrayList<String> Lista;
-    int numeroDeAcertos = 0;
+    ArrayList<String> localDasCelulas;
+    private String nome;
 
 
     public String  checkYourself (String  palpite){
-        for( String celula : this.Lista){
-            if(palpite.equals(celula)){
-                numeroDeAcertos++;
-                if (numeroDeAcertos >= Lista.size()){
-                    return "Kill";
-                }
-                return "Hit";
+        String resultado = "Miss";
+        int indice = localDasCelulas.indexOf(palpite);
+
+        if(indice >= 0){
+            localDasCelulas.remove(indice);
+
+            if(localDasCelulas.isEmpty()){
+                resultado = "Kill";
+                System.out.println("Você afundou" + nome);
+            } else {
+                resultado = "Hit";
             }
         }
-        return  "Miss";
+        return resultado;
     }
 
     public void setLocationCells (ArrayList<String> local){
 
-        this.Lista = local ;
+        this.localDasCelulas = local ;
+    }
+
+    public void setName (String nome){
+        this.nome = nome;
     }
 
 }
